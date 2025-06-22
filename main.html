@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>운동 추천 챗봇</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+    select, input[type=range] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 운동 추천 챗봇</h1>
+
+  <label for="userType">1️⃣ 당신은 어떤 유형인가요?</label>
+  <select id="userType">
+    <option>학생</option>
+    <option>직장인</option>
+    <option>선생님</option>
+    <option>시니어 (어르신)</option>
+    <option>기타</option>
+  </select>
+
+  <label for="goal">2️⃣ 운동 목표를 선택하세요:</label>
+  <select id="goal">
+    <option>스트레칭</option>
+    <option>근력 강화</option>
+    <option>다이어트</option>
+    <option>자세 교정</option>
+    <option>체력 향상</option>
+  </select>
+
+  <label for="time">3️⃣ 운동 가능한 시간은 몇 분인가요? (<span id="timeValue">30</span>분)</label>
+  <input type="range" id="time" min="10" max="60" step="5" value="30">
+
+  <button onclick="recommendRoutine()">💡 운동 루틴 추천받기</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    document.getElementById('time').addEventListener('input', function() {
+      document.getElementById('timeValue').textContent = this.value;
+    });
+
+    function recommendRoutine() {
+      const user = document.getElementById('userType').value;
+      const goal = document.getElementById('goal').value;
+      const time = document.getElementById('time').value;
+      let result = `🙋‍♀️ [${user}] 유형의 사용자님!\n`;
+      result += `운동 목표는 '${goal}', 운동 시간은 ${time}분이군요.\n\n`;
+
+      switch(goal) {
+        case "스트레칭":
+          result += "🧘‍♂️ 추천 루틴:\n- 목 돌리기 2분\n- 어깨 회전 3분\n- 햄스트링 스트레칭 5분\n- 고양이 자세 3분\n- 전신 이완 반복";
+          break;
+        case "근력 강화":
+          result += "🏋️‍♀️ 추천 루틴:\n- 스쿼트 3세트\n- 푸쉬업 2세트\n- 플랭크 1분 × 3\n- 런지 2세트\n- 복근 운동";
+          break;
+        case "다이어트":
+          result += "🔥 추천 루틴:\n- 제자리 뛰기 5분\n- 마운틴 클라이머 3세트\n- 버피 테스트 3세트\n- 유산소 + 전신 스트레칭";
+          break;
+        case "자세 교정":
+          result += "🪑 추천 루틴:\n- 거북목 교정 5분\n- 골반 교정 5분\n- 허리 스트레칭\n- 올바른 자세 호흡 훈련";
+          break;
+        case "체력 향상":
+          result += "🏃‍♂️ 추천 루틴:\n- 제자리 뜀뛰기\n- 팔벌려 뛰기\n- 전신 점프\n- 유산소 운동 15분\n- 마무리 스트레칭";
+          break;
+      }
+
+      result += `\n\n✅ 운동 전후 수분 섭취 잊지 마세요!`;
+
+      // 노션 링크 추가
+      result += `\n\n🔗 [노션에서 학생과 관련된 건강 정보와 건강 관련 추천 앱을 알아보세요](https://www.notion.so/21962787304a80a7a4caeb2129ac1084?pvs=4)`;
+         result += `\n\n 위에 주소를 복사해서 사용해주세요`;
+
+      document.getElementById('output').textContent = result;
+    }
+  </script>
+</body>
+</html>
